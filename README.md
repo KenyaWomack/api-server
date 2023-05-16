@@ -11,7 +11,7 @@ This is a basic Express server including use of SQL data models using best pract
 ### Links and Resources
 
 - [GitHub Actions ci/cd](https://github.com/KenyaWomack/api-server/actions)
-- [back-end prod server url](https://api-server-lab03.onrender.com/)
+- [back-end prod server url](https://basic-express-server-syft.onrender.com/)
 
 ### Collaborators
 
@@ -40,3 +40,21 @@ To run tests, after running `npm i`, run the command `npm test`
 #### UML
 
 ![UML image](UMLlab03.png)
+
+Lab04 Collab 
+
+## Who was your partner?
+
+Ike
+
+## What was your key takeaway?
+
+This was interesting
+
+## Share the link to your PR request.
+
+https://github.com/KenyaWomack/api-server/pull/5
+
+## Share the link to their PR request.
+
+https://github.com/IkeSteoger/api-server/pull/4

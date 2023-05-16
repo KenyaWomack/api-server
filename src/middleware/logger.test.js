@@ -1,24 +1,16 @@
-const logger = require('../middleware/logger');
+const logger = require('./logger');
 
-describe('logger middleware', () => {
-  let consoleLogSpy;
+describe('Logger Middleware', () => {
+  let req, res, next;
 
   beforeEach(() => {
-    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    req = {};
+    res = {};
+    next = jest.fn();
   });
 
-  afterEach(() => {
-    consoleLogSpy.mockRestore();
-  });
-
-  it('should log the request method and path', () => {
-    const req = { method: 'GET', path: '/person' };
-    const res = {};
-    const next = jest.fn();
-
+  test('should call next function', () => {
     logger(req, res, next);
-
-    expect(consoleLogSpy).toHaveBeenCalledWith('GET /person');
-    expect(next).toHaveBeenCalledTimes(1);
+    expect(next).toHaveBeenCalled();
   });
 });

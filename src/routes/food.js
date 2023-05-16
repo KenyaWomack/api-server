@@ -1,6 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
 const Food = require('../models/food');
+
+router.use(bodyParser.json());
 
 router.post('/', async (req, res) => {
   try {

@@ -1,24 +1,33 @@
 const express = require('express');
+const logger = require('./middleware/logger');
+const validator = require('./middleware/validator');
+const errorHandler404 = require('./error-handlers/404');
+const errorHandler500 = require('./error-handlers/500');
+
 const app = express();
-const foodRoutes = require('./routes/food');
-const clothesRoutes = require('./routes/clothes');
 
-app.use(express.json());
+// Middleware
+app.use(logger);
 
-app.use('/food', foodRoutes);
-
-app.use('/clothes', clothesRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Routes
+app.get('/person', validator, (req, res) => {
+  const name = req.query.name;
+  if (name) {
+    res.json({ name });
+  } else {
+    throw new Error('Name is missing');
+  }
 });
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
-});
+// Error Handlers
+app.use(errorHandler404);
+app.use(errorHandler500);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = {
+  start: function (port) {
+    app.listen(port, () => {
+      console.log(`Server is listening on port ${port}`);
+    });
+  },
+  app: app,
+};

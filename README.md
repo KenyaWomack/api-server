@@ -45,7 +45,7 @@ Lab04 Collab
 
 ## Who was your partner?
 
-Ike
+Ike Steoger 
 
 ## What was your key takeaway?
 
@@ -59,4 +59,3 @@ https://github.com/KenyaWomack/api-server/pull/5
 
 https://github.com/IkeSteoger/api-server/pull/4
 
--------------------

@@ -1,43 +1,32 @@
 const express = require('express');
-const logger = require('./middleware/logger');
+const logger = require('./middleware/logger.js');
 const validator = require('./middleware/validator');
-const errorHandler404 = require('./error-handler/404');
-const errorHandler500 = require('./error-handler/500');
-// const cors = require('cors');
+const errorHandler404 = require('./error-handlers/404.js');
+const errorHandler500 = require('./error-handlers/500.js');
 const app = express();
 const foodRoutes = require('./routes/food');
 const clothesRoutes = require('./routes/clothes');
 
+const Food = require('./models/food'); // Require the correct data model
+const FoodCollection = require('./collections/food'); // Require the collection class
+
 app.use(express.json());
 
-app.use('/food', foodRoutes);
+app.use('/food', foodRoutes(Food, FoodCollection)); // Use the food routes and pass the model and collection as parameters
+app.use('/clothes', clothesRoutes); // Use the clothes routes
 
-app.use('/clothes', clothesRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-// Middleware
-
-// might be worth adding! not sure if required
-// app.use(cors());
-// app.use(express.json());
 app.use(logger);
+app.use(validator);
 
 // Routes
-
-// app.get('/', (req, res, next) => {
-//   res.status(200).send('Server is alive!!!');
-// });
-
-app.get('/person', validator, (req, res) => {
-  const name = req.query.name;
-  if (name) {
-    res.json({ name });
-  } else {
-    throw new Error('Name is missing');
-  }
+app.get('/', (req, res, next) => {
+  res.status(200).send('Server is alive!!!');
 });
-// very cool use of throwing an error!! didnt think of this!
+
+// Error handlers
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

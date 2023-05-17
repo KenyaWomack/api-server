@@ -1,15 +1,27 @@
-// src/models/collection.js
+'use strict';
+
 class Collection {
   constructor(model) {
     this.model = model;
   }
 
   async create(data) {
-    return this.model.create(data);
+    try {
+      let record = await this.model.create(data);
+      return record;
+    } catch (error) {
+      return error;
+    }
   }
 
   async read() {
-    return this.model.findAll();
+    let record = null;
+    try {
+      record = await this.model.findAll();
+      return record;
+    } catch (error) {
+      return error;
+    }
   }
 
   async update(id, data) {

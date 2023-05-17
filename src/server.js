@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const logger = require('./middleware/logger.js');
 const validator = require('./middleware/validator');
@@ -7,16 +9,12 @@ const app = express();
 const foodRoutes = require('./routes/food');
 const clothesRoutes = require('./routes/clothes');
 
-const Food = require('./models/food'); // Require the correct data model
-const FoodCollection = require('./collections/food'); // Require the collection class
-
 app.use(express.json());
 
-app.use('/food', foodRoutes(Food, FoodCollection)); // Use the food routes and pass the model and collection as parameters
+app.use('/food', foodRoutes); // Use the food routes and pass the model and collection as parameters
 app.use('/clothes', clothesRoutes); // Use the clothes routes
 
 app.use(logger);
-app.use(validator);
 
 // Routes
 app.get('/', (req, res, next) => {
@@ -33,9 +31,16 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// const port = process.env.PORT || 3000;
+// const server = app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
 
-module.exports = app;
+module.exports = {
+  server: app,
+  start: port => {
+    if (!port) { throw new Error('Missing Port'); }
+    app.listen(port, () => console.log(`Listening on ${port}`));
+  },
+};
+

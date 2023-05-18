@@ -1,3 +1,4 @@
+
 const express = require('express');
 const { Sequelize } = require('sequelize');
 const app = express();
@@ -7,6 +8,13 @@ const foodRoutes = require('./src/routes/food');
 const clothesRoutes = require('./src/routes/clothes');
 const NotFoundHandler = require('./src/error-handlers/404');
 const ErrorHandler = require('./src/error-handlers/500');
+
+
+// bringing in dotenv, bringing server up, and setting port (maybe 3002?)
+// bring in config folder with `npm run init:config`
+require('dotenv').config();
+const server = require('./src/server');
+
 
 
 const sequelize = new Sequelize({

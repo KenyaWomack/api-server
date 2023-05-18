@@ -1,8 +1,10 @@
-const validator = (req, res, next) => {
-  if (!req.body || Object.keys(req.body).length === 0) {
-    return res.status(400).json({ error: 'Request body is missing or empty' });
+function validator(req, res, next) {
+  const name = req.query.name;
+  if (!name) {
+    res.status(500).send('Name is missing');
+  } else {
+    next();
   }
-  next();
-};
+}
   
 module.exports = validator;

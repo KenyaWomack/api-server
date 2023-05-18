@@ -1,6 +1,6 @@
-function errorHandler500(err, req, res, next) {
-  console.error(err);
-  res.status(500).send('Server Error');
-}
+const errorHandler = (err, req, res, next) => {
+  console.error(err); 
+  res.status(500).json({ error: 'Internal Server Error' });
+};
 
-module.exports = errorHandler500;
+module.exports = errorHandler;

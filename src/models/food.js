@@ -1,12 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+'use strict';
 
-const Food = sequelize.define('Food', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
+const Food = (sequelize, DataTypes) => sequelize.define('Food', {
+ 
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -16,7 +11,7 @@ const Food = sequelize.define('Food', {
     allowNull: false,
   },
   price: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, {
